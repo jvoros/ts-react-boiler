@@ -6,7 +6,7 @@ module.exports = {
     entry: "./src/index.tsx",
     output: {
         filename: "bundle.js",
-        path: join(__dirname, "/dist")
+        path: join(__dirname, "/public")
     },
     devtool: "source-map",
     resolve: {
