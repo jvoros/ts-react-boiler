@@ -1,12 +1,11 @@
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { join } from 'path';
 
-
 module.exports = {
-    entry: "./src/index.tsx",
+    context: join(__dirname, 'src'),
+    entry: "./index.tsx",
     output: {
         filename: "bundle.js",
-        path: join(__dirname, "/public")
+        path: join(__dirname, "public")
     },
     devtool: "source-map",
     resolve: {
@@ -32,12 +31,20 @@ module.exports = {
                 test: /\.json$/,
                 loader: 'json-loader',
             },
+            {
+                test: /\.html$/,
+                loader: ['file-loader?name=[name].[ext]', 'extract-loader', 'html-loader']
+            },
+            {
+                test: /\.(jpg|jpeg|gif|png)$/,
+                exclude: /node_modules/,
+                loader:'file-loader?name=[path][name].[ext]'
+            },
+            {
+                // put favicon in root
+                test: /favicon\.ico$/,
+                loader:'file-loader?name=favicon.ico'
+            }
         ]
     },
-    plugins: [
-        new HtmlWebpackPlugin({ 
-            template: './src/index.html', 
-            hash: true 
-        })
-    ]
 };
